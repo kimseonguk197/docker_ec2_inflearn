@@ -31,7 +31,8 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           if ! type docker > /dev/null ; then
-            sudo snap install docker
+            export DEBIAN_FRONTEND=noninteractive
+            curl -fsSL https://get.docker.com | bash
           fi
           sudo docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
 
