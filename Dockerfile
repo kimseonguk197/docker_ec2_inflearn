@@ -1,4 +1,4 @@
-FROM openjdk:17 as stage1
+FROM openjdk:17-jdk-alpine as stage1
 WORKDIR /app
 COPY gradlew .
 COPY gradle gradle
@@ -8,7 +8,7 @@ COPY settings.gradle .
 
 RUN chmod 777 gradlew
 RUN ./gradlew bootJar
-FROM openjdk:17 
+FROM openjdk:17-jdk-alpine 
 WORKDIR /app
 COPY --from=stage1 /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
